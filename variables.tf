@@ -26,3 +26,18 @@ variable "eks_cluster_domain" {
 variable "route53_zone_arns" {
   type = list(string)
 }
+
+variable "github_app_id" {
+  type      = string
+  sensitive = true
+}
+
+variable "github_private_key_file_path" {
+  type      = string
+  sensitive = true
+}
+
+variable "github_app_installation_id" {
+  type      = string
+  sensitive = true
+}

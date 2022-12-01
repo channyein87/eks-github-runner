@@ -1,6 +1,6 @@
 .terraform/
 *.tfvars
-*.lock.hcl
+*.lock.*
 kubeconfig.yaml
 *.tfstate
 *.backup

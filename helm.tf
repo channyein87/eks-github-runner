@@ -2,6 +2,11 @@ resource "kubernetes_namespace" "namespace" {
   metadata {
     name = "actions-runner-system"
   }
+
+  depends_on = [
+    module.eks,
+    time_sleep.wait_60_seconds_after_eks_blueprints
+  ]
 }
 
 resource "kubernetes_secret" "secret" {
@@ -33,6 +38,7 @@ resource "helm_release" "arc" {
   ]
 
   depends_on = [
+    module.addons,
     kubernetes_secret.secret
   ]
 }

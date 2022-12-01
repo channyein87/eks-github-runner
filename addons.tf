@@ -14,4 +14,8 @@ module "addons" {
   enable_amazon_eks_aws_ebs_csi_driver = true
   enable_external_dns                  = true
   external_dns_route53_zone_arns       = var.route53_zone_arns
+
+  depends_on = [
+    time_sleep.wait_60_seconds_after_eks_blueprints
+  ]
 }

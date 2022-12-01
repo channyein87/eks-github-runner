@@ -48,6 +48,11 @@ module "eks" {
   }
 }
 
+resource "time_sleep" "wait_60_seconds_after_eks_blueprints" {
+  depends_on      = [module.eks.eks_managed_node_groups]
+  create_duration = "60s"
+}
+
 resource "aws_ec2_tag" "public_subnets_cluster" {
   for_each = toset(var.public_subnet_ids)
 

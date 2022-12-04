@@ -1,0 +1,23 @@
+nameOverride: ""
+fullnameOverride: ""
+
+organization: channyeinkoko
+
+runner:
+  irsaName: actions-runner-iam-role
+  labels: [ aws, eks ]
+  min: 0
+  max: 10
+  duration: "30m"
+
+securityContext:
+  fsGroup: 1000
+podSecurityContext: {}
+
+resources:
+  limits:
+    cpu: "2.0"
+    memory: "4Gi"
+  requests:
+    cpu: "1.0"
+    memory: "2Gi"

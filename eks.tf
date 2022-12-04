@@ -49,7 +49,7 @@ module "eks" {
 }
 
 resource "time_sleep" "wait_60_seconds_after_eks_blueprints" {
-  depends_on      = [module.eks.eks_managed_node_groups]
+  depends_on      = [module.eks]
   create_duration = "60s"
 }
 

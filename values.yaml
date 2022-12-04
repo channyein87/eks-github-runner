@@ -1,0 +1,17 @@
+githubWebhookServer:
+  enabled: true
+  secret:
+    enabled: true
+    create: true
+    github_webhook_secret_token: V3ry-S3cure-S3cret
+  service:
+    type: NodePort
+  ingress:
+    enabled: true
+    # hosts: [{"host": "eks-gh-runner.example.local", "paths": [{"path": "/", "pathType": "Exact"}]}]
+    ingressClassName: alb
+    annotations:
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+      alb.ingress.kubernetes.io/ssl-redirect: '443'
+      # alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:0123456789012:certificate/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee

@@ -4,4 +4,3 @@
 kubeconfig.yaml
 *.tfstate
 *.backup
-values.yaml

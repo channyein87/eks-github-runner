@@ -19,3 +19,9 @@ module "addons" {
     time_sleep.wait_60_seconds_after_eks_blueprints
   ]
 }
+
+resource "time_sleep" "wait_60_seconds_after_eks_addons" {
+  depends_on       = [module.addons]
+  create_duration  = "60s"
+  destroy_duration = "60s"
+}

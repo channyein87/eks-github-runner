@@ -38,7 +38,7 @@ resource "helm_release" "arc" {
   ]
 
   depends_on = [
-    module.addons,
+    time_sleep.wait_60_seconds_after_eks_addons,
     kubernetes_secret.secret
   ]
 }
@@ -53,6 +53,7 @@ resource "helm_release" "runner_set" {
   wait_for_jobs   = true
 
   depends_on = [
-    helm_release.arc
+    helm_release.arc,
+    kubernetes_service_account.runner
   ]
 }

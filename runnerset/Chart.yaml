@@ -1,0 +1,8 @@
+apiVersion: v2
+name: runnerset
+description: A Helm chart creates Action RunnerSet
+type: application
+version: 0.0.1
+appVersion: "1.16.0"
+maintainers:
+  - name: Chan Nyein Ko Ko

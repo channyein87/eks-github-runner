@@ -1,0 +1,38 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerSet
+metadata:
+  name: {{ include "runnerset.fullname" . }}
+spec:
+  organization: {{ .Values.organization }}
+  {{- if .Values.dockerdWithinRunnerContainer.enabled }}
+  dockerdWithinRunnerContainer: true
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ include "runnerset.fullname" . }}
+  serviceName: {{ include "runnerset.fullname" . }}
+  image: summerwind/actions-runner-dind
+  labels:
+    {{- range .Values.runner.labels }}
+    - {{ . | quote }}
+    {{- end }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "runnerset.fullname" . }}
+    spec:
+      securityContext:
+        {{- toYaml .Values.securityContext | nindent 8 }}
+      serviceAccountName: {{ .Values.runner.irsaName }}
+      containers:
+        - name: runner
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+        {{- if .Values.dockerdWithinRunnerContainer.enabled }}
+        - name: docker
+          image: summerwind/actions-runner-dind
+          resources:
+            {{- toYaml .Values.dockerdWithinRunnerContainer.resources | nindent 12 }}
+        {{- end }}

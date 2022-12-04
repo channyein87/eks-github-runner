@@ -34,11 +34,25 @@ resource "helm_release" "arc" {
   wait_for_jobs   = true
 
   values = [
-    "${file("values.yaml")}"
+    file("values.yaml")
   ]
 
   depends_on = [
     module.addons,
     kubernetes_secret.secret
+  ]
+}
+
+resource "helm_release" "runner_set" {
+  chart           = "${path.module}/runnerset"
+  name            = "github-actions"
+  namespace       = kubernetes_namespace.namespace.metadata[0].name
+  force_update    = true
+  recreate_pods   = true
+  cleanup_on_fail = true
+  wait_for_jobs   = true
+
+  depends_on = [
+    helm_release.arc
   ]
 }

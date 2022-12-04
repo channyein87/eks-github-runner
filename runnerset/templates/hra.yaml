@@ -1,0 +1,14 @@
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: {{ include "runnerset.fullname" . }}
+spec:
+  minReplicas: {{ .Values.runner.min }}
+  maxReplicas: {{ .Values.runner.max }}
+  scaleTargetRef:
+    kind: RunnerSet
+    name: {{ include "runnerset.fullname" . }}
+  scaleUpTriggers:
+    - githubEvent:
+        workflowJob: {}
+      duration: {{ .Values.runner.duration | quote }}
